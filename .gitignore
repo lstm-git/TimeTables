@@ -2,6 +2,9 @@
 *.xlsx
 ~$*.xls*
 
+# LSTM branding assets (kept locally / on OneDrive, not in git)
+Assets/
+
 # OneDrive / Windows artifacts
 desktop.ini
 Thumbs.db

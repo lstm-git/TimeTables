@@ -29,3 +29,10 @@
 - Decision: repeat bookings that clash with existing bookings are skipped (and listed to the user) rather than failing the whole series.
 - Decision: spreadsheet's "17:00+" column stored internally as 17:00–18:00.
 - TODO next: Daniel to try the app locally; then phase 6 (deploy to VM + Postgres + Entra app registration).
+- Daniel added `Assets/` (LSTM logo pack); added it to `.gitignore` at his request. Note: any logo used by the app must be copied into `app/static/` (committed) — pick an RGB PNG/SVG variant, not CMYK/EPS.
+
+### Branding (2026-06-12)
+- Sampled exact brand colours from the RGB sail PNGs: LSTM Red #DC002E, Burgundy #790033, Sand #F4F1DE.
+- Copied downscaled logos into `app/static/`: `lstm_logo_white.png` (white Full Marque, top bar), `lstm_logo.png` (full-colour, login page), `favicon.png` (sails). Originals stay in gitignored `Assets/`.
+- Restyled: burgundy top bar with red underline + white logo, LSTM Red primary buttons/today/slot-hover, sand table headers and page background. Installed Pillow (--user) for the resizing.
+- Verified via test client: pages reference the logos and all static assets serve 200.
