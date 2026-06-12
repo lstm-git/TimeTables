@@ -1,0 +1,45 @@
+<dialog id="booking-modal">
+  <form id="booking-form" method="dialog">
+    <h2 id="modal-title">New booking</h2>
+    <input type="hidden" id="f-booking-id">
+    <input type="hidden" id="f-room-id">
+
+    <div class="formrow">
+      <label>Room <span id="f-room-name" class="static-val"></span></label>
+      <label>Date <input type="date" id="f-date" required></label>
+    </div>
+    <div class="formrow">
+      <label>From
+        <select id="f-start"></select>
+      </label>
+      <label>To
+        <select id="f-end"></select>
+      </label>
+    </div>
+    <label>Course / activity <input id="f-activity" required
+           placeholder="e.g. TROP703, DTM&H, Ad Hoc"></label>
+    <label>Teacher / who it's for <input id="f-teacher"></label>
+    <label>Notes <textarea id="f-notes" rows="2"></textarea></label>
+
+    <fieldset id="repeat-box">
+      <legend><label><input type="checkbox" id="f-repeat"> Repeat weekly</label></legend>
+      <div id="repeat-opts" hidden>
+        <div class="weekday-picks">
+          <label><input type="checkbox" value="0"> Mon</label>
+          <label><input type="checkbox" value="1"> Tue</label>
+          <label><input type="checkbox" value="2"> Wed</label>
+          <label><input type="checkbox" value="3"> Thu</label>
+          <label><input type="checkbox" value="4"> Fri</label>
+        </div>
+        <label>Until <input type="date" id="f-repeat-until"></label>
+      </div>
+    </fieldset>
+
+    <p id="f-meta" class="meta"></p>
+    <p id="f-error" class="error" hidden></p>
+    <div class="modal-actions">
+      <button type="button" id="f-cancel" class="btn">Cancel</button>
+      <button type="submit" class="btn primary" id="f-save">Save booking</button>
+    </div>
+  </form>
+</dialog>

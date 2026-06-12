@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Week of {{ monday.strftime("%d %b %Y") }} — LSTM Room Bookings{% endblock %}
+{% block content %}
+<div class="weeknav">
+  <a class="btn" href="{{ url_for('main.week', day=prev_week) }}">&larr; Previous</a>
+  <h1>Week beginning {{ monday.strftime("%A %d %B %Y") }}</h1>
+  <a class="btn" href="{{ url_for('main.week', day=today.isoformat()) }}">Today</a>
+  <input type="date" id="jump-date" value="{{ monday.isoformat() }}">
+  <a class="btn" href="{{ url_for('main.week', day=next_week) }}">Next &rarr;</a>
+</div>
+<p class="hint">Click a free slot to book it. Click a booking to view or edit.</p>
+
+{% for d in days %}
+<section class="day {% if d == today %}today{% endif %}">
+  <h2>{{ d.strftime("%A %d/%m/%Y") }}</h2>
+  <div class="gridwrap">
+    <table class="daygrid" data-date="{{ d.isoformat() }}">
+      <thead>
+        <tr>
+          <th class="roomcol">Room</th>
+          {% for s in slots %}<th>{{ slot_label(s) }}</th>{% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for room in rooms %}
+        <tr data-room="{{ room.id }}" data-room-name="{{ room.display_name }}">
+          <th class="roomcol">{{ room.display_name }}</th>
+          {% for cell in grid[(d, room.id)] %}
+            {% if cell.booking %}
+            <td class="booked" colspan="{{ cell.span }}"
+                data-booking="{{ cell.booking.id }}"
+                data-activity="{{ cell.booking.activity }}"
+                title="{{ cell.booking.activity }}{% if cell.booking.teacher %} — {{ cell.booking.teacher }}{% endif %} ({{ cell.booking.booked_by }})">
+              {{ cell.booking.activity }}
+            </td>
+            {% else %}
+            <td class="free" data-slot="{{ cell.slot.strftime('%H:%M') }}"></td>
+            {% endif %}
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endfor %}
+
+{% include "booking_modal.html" %}
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='grid.js') }}"></script>
+{% endblock %}

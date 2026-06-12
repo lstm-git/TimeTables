@@ -5,3 +5,12 @@
 # OneDrive / Windows artifacts
 desktop.ini
 Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+instance/
+.env
+*.db

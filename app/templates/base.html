@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}LSTM Room Bookings{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="{{ url_for('main.index') }}">LSTM Room Bookings</a>
+  <nav>
+    <a href="{{ url_for('main.index') }}">This week</a>
+    <a href="{{ url_for('main.rooms') }}">Rooms</a>
+  </nav>
+  <form class="searchbox" action="{{ url_for('main.search') }}" method="get">
+    <input type="search" name="q" placeholder="Search course, teacher, booker…"
+           value="{{ request.args.get('q', '') }}">
+  </form>
+  <div class="userbox">
+    {% if user %}{{ user.name }} · <a href="{{ url_for('auth.logout') }}">Sign out</a>{% endif %}
+  </div>
+</header>
+<main>
+{% block content %}{% endblock %}
+</main>
+{% block scripts %}{% endblock %}
+</body>
+</html>

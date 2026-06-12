@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Rooms — LSTM Room Bookings{% endblock %}
+{% block content %}
+<h1>Rooms</h1>
+<table class="results">
+  <thead><tr><th>Room</th><th>Capacity</th><th>Status</th><th></th></tr></thead>
+  <tbody>
+  {% for room in rooms %}
+    <tr class="{{ 'inactive' if not room.active }}">
+      <td>{{ room.name }}</td>
+      <td>{{ room.capacity or "" }}</td>
+      <td>{{ "Active" if room.active else "Retired" }}</td>
+      <td>
+        <form method="post" action="{{ url_for('main.toggle_room', room_id=room.id) }}">
+          <button class="btn" type="submit">{{ "Retire" if room.active else "Reactivate" }}</button>
+        </form>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<h2>Add a room</h2>
+<form method="post" class="addroom">
+  <label>Name <input name="name" required></label>
+  <label>Capacity <input name="capacity" type="number" min="1"></label>
+  <button class="btn primary" type="submit">Add room</button>
+</form>
+<p class="hint">Retiring a room hides it from the booking grid; existing bookings are kept.</p>
+{% endblock %}

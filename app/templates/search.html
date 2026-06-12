@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Search — LSTM Room Bookings{% endblock %}
+{% block content %}
+<h1>Search bookings</h1>
+<form method="get" class="search-page">
+  <input type="search" name="q" value="{{ q }}" autofocus
+         placeholder="Course code, teacher, booker or notes…">
+  <button class="btn primary" type="submit">Search</button>
+</form>
+{% if q %}
+  <p>{{ results|length }} result{{ '' if results|length == 1 else 's' }} for “{{ q }}”.</p>
+  {% if results %}
+  <table class="results">
+    <thead><tr><th>Date</th><th>Time</th><th>Room</th><th>Course / activity</th>
+               <th>Teacher</th><th>Booked by</th><th>Notes</th></tr></thead>
+    <tbody>
+    {% for b in results %}
+      <tr>
+        <td><a href="{{ url_for('main.week', day=b.date.isoformat()) }}">{{ b.date.strftime("%a %d/%m/%Y") }}</a></td>
+        <td>{{ b.start_time.strftime("%H:%M") }}–{{ b.end_time.strftime("%H:%M") }}</td>
+        <td>{{ b.room.display_name }}</td>
+        <td>{{ b.activity }}</td>
+        <td>{{ b.teacher or "" }}</td>
+        <td>{{ b.booked_by or "" }}</td>
+        <td class="notes">{{ b.notes or "" }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Sign in — LSTM Room Bookings{% endblock %}
+{% block content %}
+<div class="login-card">
+  <h1>Sign in</h1>
+  <p class="dev-note">Development mode — enter your name to continue.
+     (Production uses your LSTM Microsoft account.)</p>
+  <form method="post">
+    <input type="hidden" name="next" value="{{ next }}">
+    <label>Name <input name="name" required autofocus></label>
+    <label>Email <input name="email" type="email"></label>
+    <button type="submit">Sign in</button>
+  </form>
+</div>
+{% endblock %}
