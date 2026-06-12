@@ -1,0 +1,7 @@
+# Excel files
+*.xlsx
+~$*.xls*
+
+# OneDrive / Windows artifacts
+desktop.ini
+Thumbs.db
