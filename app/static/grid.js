@@ -5,6 +5,9 @@
   const modal = document.getElementById("booking-modal");
   if (!modal) return;
 
+  // Base path the app is mounted at (e.g. "/timetables" behind nginx, "" locally).
+  const APP_ROOT = window.APP_ROOT || "";
+
   const form = document.getElementById("booking-form");
   const el = (id) => document.getElementById(id);
   const errBox = el("f-error");
@@ -67,7 +70,7 @@
           end: start === "17:00" ? "18:00" : addMinutes(start, 60),
         });
       } else if (cell.classList.contains("booked")) {
-        const resp = await fetch(`/api/bookings/${cell.dataset.booking}`);
+        const resp = await fetch(`${APP_ROOT}/api/bookings/${cell.dataset.booking}`);
         if (!resp.ok) return;
         const b = await resp.json();
         openModal({
@@ -113,7 +116,7 @@
       if (!payload.repeat_until) { showError("Choose an end date for the repeat."); return; }
     }
 
-    const resp = await fetch(bookingId ? `/api/bookings/${bookingId}` : "/api/bookings", {
+    const resp = await fetch(bookingId ? `${APP_ROOT}/api/bookings/${bookingId}` : `${APP_ROOT}/api/bookings`, {
       method: bookingId ? "PUT" : "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -129,6 +132,6 @@
   // Jump-to-date picker in the week nav.
   const jump = document.getElementById("jump-date");
   if (jump) jump.addEventListener("change", () => {
-    if (jump.value) location.href = `/week/${jump.value}`;
+    if (jump.value) location.href = `${APP_ROOT}/week/${jump.value}`;
   });
 })();
