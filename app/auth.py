@@ -26,7 +26,10 @@ def login_required(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
         if not session.get("user"):
-            return redirect(url_for("auth.login", next=request.full_path))
+            # Include script_root so the post-login redirect keeps the
+            # mount prefix (e.g. /timetables) when behind nginx.
+            return redirect(url_for("auth.login",
+                                    next=request.script_root + request.full_path))
         return f(*args, **kwargs)
     return wrapper
 

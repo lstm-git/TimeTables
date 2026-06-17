@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}LSTM Room Bookings{% endblock %}</title>
+  <title>{% block title %}Timetables — Teaching Rooms{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
   <script>window.APP_ROOT = "{{ request.script_root }}";</script>
@@ -12,7 +12,7 @@
 <header class="topbar">
   <a class="brand" href="{{ url_for('main.index') }}">
     <img src="{{ url_for('static', filename='lstm_logo_white.png') }}" alt="LSTM" class="brand-logo">
-    <span>Room Bookings</span>
+    <span>Timetables <em>· Teaching Rooms</em></span>
   </a>
   <nav>
     <a href="{{ url_for('main.index') }}">This week</a>

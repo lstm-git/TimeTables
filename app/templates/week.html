@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Week of {{ monday.strftime("%d %b %Y") }} — LSTM Room Bookings{% endblock %}
+{% block title %}Timetables — week of {{ monday.strftime("%d %b %Y") }}{% endblock %}
 {% block content %}
 <div class="weeknav">
   <a class="btn" href="{{ url_for('main.week', day=prev_week) }}">&larr; Previous</a>
